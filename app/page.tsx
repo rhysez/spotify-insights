@@ -1,12 +1,13 @@
-import AcmeLogo from '@/app/ui/acme-logo';
+import Icon from '@mdi/react';
+import { mdiSpotify } from '@mdi/js';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 export default function Page() {
   return (
     <main className="flex min-h-screen flex-col">
-      <div className="flex h-20 shrink-0 items-end bg-slate-800 p-4 md:h-52">
-        {/* <AcmeLogo /> */}
+      <div className="flex h-30 shrink-0 items-center bg-slate-800 p-4 md:h-52">
+        <Icon className="text-green-500" path={mdiSpotify} size={4} />
       </div>
       <div className="flex grow flex-col gap-4 md:flex-row">
         <div className="flex flex-col justify-center gap-6 bg-gray-50 px-6 py-10 md:w-2/5 md:px-20">
