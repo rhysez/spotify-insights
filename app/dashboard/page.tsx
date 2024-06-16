@@ -1,9 +1,11 @@
-import { getSpotifyToken } from "../lib/data";
+import { getSpotifyToken, getGenres } from "../lib/data";
 
 export default async function Page() {
   const token = await getSpotifyToken();
 
-  console.log(token);
+  const categories = await getGenres(token);
+
+  console.log(categories);
 
   return (
     <>

@@ -30,3 +30,20 @@ export async function getSpotifyToken() {
     throw new Error('Failed to fetch access token.');
   }
 }
+
+export async function getGenres(token: string) {
+  try {
+    const response = await fetch('https://api.spotify.com/v1/browse/categories', {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
+    });
+
+    const data = await response.json();
+    return data.categories.items;
+  } catch (error) {
+    console.error('Failed to fetch categories:', error);
+    throw new Error('Failed to fetch categories.');
+  }
+}
