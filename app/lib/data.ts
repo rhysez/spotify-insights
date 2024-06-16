@@ -31,7 +31,7 @@ export async function getSpotifyToken() {
   }
 }
 
-export async function getGenres(token: string) {
+export async function getCategories(token: string) {
   try {
     const response = await fetch('https://api.spotify.com/v1/browse/categories', {
       method: 'GET',

@@ -1,4 +1,4 @@
-import { getSpotifyToken, getGenres } from "../lib/data";
+import { getSpotifyToken, getCategories } from "../lib/data";
 
 export default async function Page() {
 
