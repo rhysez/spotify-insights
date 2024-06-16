@@ -18,7 +18,7 @@ export async function getSpotifyToken() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' + btoa(process.env.SPOTIFY_CLIENT_ID as string + ':' + process.env.SPOTIFY_CLIENT_SECRET as string)
+        'Authorization': 'Basic ' + btoa(process.env.POTIFY_CLIENT_ID as string + ':' + process.env.SPOTIFY_CLIENT_SECRET as string)
       },
       body: 'grant_type=client_credentials'
     });
