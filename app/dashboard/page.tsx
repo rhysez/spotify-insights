@@ -1,3 +1,10 @@
+
+
 export default function Page() {
-  return <p>Dashboard Page</p>;
-}
+  return (
+    <>
+      <h2 className="font-bold text-4xl text-center md:text-left">Dashboard</h2>
+      
+    </>
+  );
+} 
