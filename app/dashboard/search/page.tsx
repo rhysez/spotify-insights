@@ -1,5 +1,5 @@
 
 
 export default function Page() {
-  return <p>Search page</p>
+  return <h2 className="font-bold text-4xl text-center md:text-left">Search</h2>
 }
