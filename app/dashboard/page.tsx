@@ -1,8 +1,7 @@
 export default async function Page() {
-
   return (
     <>
-      <h2 className="font-bold text-4xl text-center md:text-left">Dashboard</h2>
+      <h2 className="text-center text-4xl font-bold md:text-left">Dashboard</h2>
     </>
   );
-} 
+}
