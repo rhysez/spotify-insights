@@ -6,6 +6,8 @@ export default async function Page() {
   const token = await getSpotifyToken();
   const categories = await getCategories(token);
 
+  console.log(token)
+
   return (
     <>
       <h2 className="font-bold text-4xl text-center md:text-left">Categories</h2>

@@ -32,6 +32,13 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      colors: {
+        spotify_green: '#1DB954',
+        spotify_white: '#FFFFFF',
+        spotify_black: "#191414",
+        spotify_dark_gray: "#262626",
+        spotify_link_active: "#404040"
+      }
     },
   },
   plugins: [require("tailwindcss-animate")],
