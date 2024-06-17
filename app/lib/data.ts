@@ -1,8 +1,9 @@
 import { sql } from '@vercel/postgres';
 import { User } from './definitions';
-
+import { unstable_noStore as noStore } from 'next/cache';
 
 export async function getUser(email: string) {
+  noStore();
   try {
     const user = await sql`SELECT * FROM users WHERE email=${email}`;
     return user.rows[0] as User;
@@ -13,6 +14,7 @@ export async function getUser(email: string) {
 }
 
 export async function getSpotifyToken() {
+  noStore();
   try {
     const response = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
@@ -32,6 +34,7 @@ export async function getSpotifyToken() {
 }
 
 export async function getCategories(token: string) {
+  noStore();
   try {
     const response = await fetch('https://api.spotify.com/v1/browse/categories', {
       method: 'GET',
