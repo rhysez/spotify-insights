@@ -20,9 +20,15 @@ export async function getSpotifyToken() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' + btoa(process.env.SPOTIFY_CLIENT_ID as string + ':' + process.env.SPOTIFY_CLIENT_SECRET as string)
+        Authorization:
+          'Basic ' +
+          btoa(
+            ((process.env.SPOTIFY_CLIENT_ID as string) +
+              ':' +
+              process.env.SPOTIFY_CLIENT_SECRET) as string,
+          ),
       },
-      body: 'grant_type=client_credentials'
+      body: 'grant_type=client_credentials',
     });
 
     const data = await response.json();
@@ -33,19 +39,42 @@ export async function getSpotifyToken() {
   }
 }
 
-export async function getCategories(token: string) {
+export async function getCategories() {
   noStore();
+  const token = await getSpotifyToken();
   try {
-    const response = await fetch('https://api.spotify.com/v1/browse/categories', {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + token
+    const response = await fetch(
+      'https://api.spotify.com/v1/browse/categories',
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
       },
-    });
+    );
 
     const data = await response.json();
     return data.categories.items;
   } catch (error) {
     console.error('Failed to fetch categories:', error);
+  }
+}
+
+export async function searchSpotify(searchTerm: string) {
+  const token = await getSpotifyToken();
+  try {
+    const response = await fetch(
+      `https://api.spotify.com/v1/search?q=${searchTerm}&type=artist`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      },
+    );
+
+    return await response.json();
+  } catch (error) {
+    console.error('Failed to fetch search data:', error);
   }
 }

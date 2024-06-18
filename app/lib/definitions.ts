@@ -9,3 +9,17 @@ export type User = {
   password: string;
 };
 
+export type Artist = {
+  external_urls: {
+    spotify: string
+  },
+  followers: { href: any, total: number | BigInt },
+  genres: string[],
+  href: string,
+  id: string,
+  images: any[],
+  name: string,
+  popularity: number,
+  type: string,
+  uri: string
+}

@@ -1,10 +1,8 @@
 import { getCategories, getSpotifyToken } from '@/app/lib/data';
 import CategoryCard from '../../ui/dashboard/categories/CategoryCard';
-import { Suspense } from 'react';
 
 export default async function Page() {
-  const token = await getSpotifyToken();
-  const categories = await getCategories(token);
+  const categories = await getCategories();
 
   return (
     <>
