@@ -2,6 +2,8 @@
 import { getSpotifyToken } from "./data";
 
 export async function searchSpotify(searchTerm: string) {
+  if (!searchTerm) return;
+
   const token = await getSpotifyToken();
   try {
     const response = await fetch(
