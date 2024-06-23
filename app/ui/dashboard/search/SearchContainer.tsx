@@ -8,6 +8,9 @@ import SearchItemCard from './SearchItemCard';
 
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState<string>('');
+
+  const [displayTerm, setDisplayTerm] = useState<string>('');
+
   const [artists, setArtists] = useState<Artist[] | null>(null);
 
   const handleSearchTermInput = (e: any) => setSearchTerm(e.target.value);
@@ -15,18 +18,15 @@ export default function SearchBar() {
   const handleSubmit = async(e: any) => {
     if (!searchTerm) {
       setArtists([])
+      setDisplayTerm("");
       return;
     };
     
     e.preventDefault();
-    const result = await searchSpotify(searchTerm)
+    const result = await searchSpotify(searchTerm);
+    setDisplayTerm(searchTerm);
     setArtists(result.artists.items);
-    console.log(result)
   }
-
-  useEffect(() => {
-    console.log(searchTerm)
-  }, [searchTerm])
 
   return (
     <section>
@@ -42,13 +42,17 @@ export default function SearchBar() {
         </Button>
       </div>
 
+      {
+        displayTerm ? <p className="text-center mt-8">Showing results for <span className="text-spotify_green font-bold">{displayTerm}</span></p> : null
+      }
+
       <main className="mt-10 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
         {artists ? (
           artists.map((artist: Artist, index: number) => (
             <SearchItemCard key={index} searchItem={artist} />
           ))
         ) : (
-          null
+            null
         )}
       </main>
     </section>
