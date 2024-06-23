@@ -33,7 +33,7 @@ export default function SearchBar() {
       <div className="flex items-center justify-center space-x-2">
         <Input
           type="text"
-          className="rounded-full border-2 px-3 py-2 text-spotify_black sm:w-80"
+          className="rounded-full border-2 px-3 py-2 text-spotify_black font-bold sm:w-80"
           placeholder="The Weeknd..."
           onChange={(value: any) => handleSearchTermInput(value)}
         />
