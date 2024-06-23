@@ -1,4 +1,3 @@
-"use client"
 import {
   Card,
   CardContent,
@@ -9,13 +8,13 @@ import {
 } from '@/components/ui/card';
 import Image from 'next/image';
 import clsx from 'clsx';
-import { Artist } from '@/app/lib/definitions';
+import { Suspense } from 'react';
 
 
 export default function SearchItemCard({ searchItem }: any) {
 
   return (
-      <Card className={clsx("bg-spotify_black border-none transition-all duration-150 ease-in-out hover:bg-spotify_green cursor-pointer")}>
+      <Card className={clsx("bg-spotify_black border-none block hover:bg-spotify_green cursor-pointer transform transition-all duration-150 ease-in-out")}>
         <CardHeader>
           <CardTitle className="text-slate-200 text-center">{searchItem.name}</CardTitle>
         </CardHeader>

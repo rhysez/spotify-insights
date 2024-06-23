@@ -1,13 +1,8 @@
 import SearchContainer from "../ui/dashboard/search/SearchContainer";
-import { searchSpotify } from "../lib/actions";
-import { Artist } from "../lib/definitions";
-import SearchItemCard from "../ui/dashboard/search/SearchItemCard";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export default async function Page() {
-  // const rawData: any = await searchSpotify('The Weeknd');
-  // const trimmedData: Artist[] = rawData.artists.items;
-
-  // console.log(trimmedData);
 
   return (
     <section className="flex-col space-y-12">
