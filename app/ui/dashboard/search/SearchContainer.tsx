@@ -9,11 +9,8 @@ import Loading from '@/app/dashboard/loading';
 
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState<string>('');
-
   const [displayTerm, setDisplayTerm] = useState<string>('');
-
   const [artists, setArtists] = useState<Artist[] | null>(null);
-
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleSearchTermInput = (e: any) => setSearchTerm(e.target.value);
