@@ -59,7 +59,7 @@ export default function Page() {
         </Button>
         <Link href={"https://open.spotify.com/artist/" + artist.id}>
           <Button className="border-2 border-spotify_green bg-transparent font-semibold hover:bg-spotify_white hover:text-spotify_green">
-            Go To Artist's Spotify
+            Go To Artist&apos;s Spotify
           </Button>
         </Link>
       </div>
