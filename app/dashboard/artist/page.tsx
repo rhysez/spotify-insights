@@ -1,6 +1,6 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
-import { getOneArtist } from '@/app/lib/actions';
+import { getOneArtist, getArtistAlbums } from '@/app/lib/actions';
 import { useEffect, useState } from 'react';
 import { Artist } from '@/app/lib/definitions';
 import Loading from './loading';
@@ -9,12 +9,14 @@ import Link from 'next/link';
 import MetricsIcons from '@/app/ui/dashboard/artist/MetricsIcons';
 import GenreList from '@/app/ui/dashboard/artist/GenreList';
 import { Button } from '@/components/ui/button';
+import ArtistAlbums from '@/app/ui/dashboard/artist/ArtistAlbums';
 
 export default function Page() {
   const searchParams = useSearchParams();
   const artistId: any = searchParams.get('artist');
 
   const [artist, setArtist] = useState<Artist | any>(null);
+  const [albums, setAlbums] = useState(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -30,6 +32,21 @@ export default function Page() {
 
     fetchArtist();
   }, []);
+
+  useEffect(() => {
+    async function fetchAlbums() {
+      try {
+        const response = await getArtistAlbums(artistId);
+        setAlbums(response);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchAlbums();
+  }, []);
+
+  console.log(albums)
 
   if (loading) {
     return <Loading />;
@@ -68,6 +85,7 @@ export default function Page() {
         followers={artist.followers.total.toLocaleString()}
       />
       <GenreList genres={artist.genres} />
+      <ArtistAlbums albums={albums} />
     </main>
   );
 }
