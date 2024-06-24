@@ -5,7 +5,9 @@ import { useEffect, useState } from 'react';
 import { Artist } from '@/app/lib/definitions';
 import Loading from './loading';
 import Image from 'next/image';
+import Link from 'next/link';
 import MetricsIcons from '@/app/ui/dashboard/artist/MetricsIcons';
+import GenreList from '@/app/ui/dashboard/artist/GenreList';
 import { Button } from '@/components/ui/button';
 
 export default function Page() {
@@ -36,30 +38,36 @@ export default function Page() {
   return (
     <main className="space-y-16">
       <section className="relative">
-      {artist.images[0] ? (
-        <div>
-          <Image
-            className="mx-auto border-2 border-spotify_dark_gray"
-            width={250}
-            height={300}
-            src={artist.images[0].url}
-            alt="artist image"
-          />
-        </div>
-      ) : null}
-        <h2 className="text-center mx-auto h-28 text-transparent bg-clip-text bg-gradient-to-r from-spotify_white via-spotify_white from-10% via-spotify_green via-30% to-spotify_green text-4xl font-bold md:text-7xl absolute left-0 right-0 bottom-2">
+        {artist.images[0] ? (
+          <div>
+            <Image
+              className="mx-auto border-2 border-spotify_dark_gray"
+              width={250}
+              height={300}
+              src={artist.images[0].url}
+              alt="artist image"
+            />
+          </div>
+        ) : null}
+        <h2 className="absolute bottom-2 left-0 right-0 mx-auto h-28 bg-gradient-to-r from-spotify_white from-10% via-spotify_green via-spotify_white via-30% to-spotify_green bg-clip-text text-center text-4xl font-bold text-transparent md:text-7xl">
           {artist.name}
         </h2>
       </section>
-      <div className="flex justify-center">
-        <Button className="bg-spotify_green font-semibold hover:bg-spotify_white hover:text-spotify_green">
+      <div className="flex justify-center gap-2">
+        <Button className="border-2 border-transparent bg-spotify_green font-semibold hover:bg-spotify_white hover:text-spotify_green">
           Start Tracking Artist
         </Button>
+        <Link href={"https://open.spotify.com/artist/" + artist.id}>
+          <Button className="border-2 border-spotify_green bg-transparent font-semibold hover:bg-spotify_white hover:text-spotify_green">
+            Go To Artist's Spotify
+          </Button>
+        </Link>
       </div>
       <MetricsIcons
         popularity={artist.popularity}
         followers={artist.followers.total.toLocaleString()}
       />
+      <GenreList genres={artist.genres} />
     </main>
   );
 }
