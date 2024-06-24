@@ -1,11 +1,11 @@
 'use client';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { searchSpotify } from '@/app/lib/actions';
 import { Artist } from '@/app/lib/definitions';
 import SearchItemCard from './SearchItemCard';
 import Loading from '@/app/dashboard/loading';
+import { useDebouncedCallback } from 'use-debounce';
 
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -13,7 +13,9 @@ export default function SearchBar() {
   const [artists, setArtists] = useState<Artist[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSearchTermInput = (e: any) => setSearchTerm(e.target.value);
+  const handleSearchTermInput = useDebouncedCallback((e: any) => {
+    setSearchTerm(e.target.value);
+  }, 300)
 
   const handleSubmit = async (e: any) => {
     if (!searchTerm) {
@@ -22,12 +24,15 @@ export default function SearchBar() {
       return;
     }
     setLoading(true)
-    e.preventDefault();
     const result = await searchSpotify(searchTerm);
     setDisplayTerm(searchTerm);
     setArtists(result.artists.items);
     setLoading(false);
   };
+
+  useEffect(() => {
+    handleSubmit(searchTerm); 
+  }, [searchTerm])
 
   return (
     <section>
@@ -38,12 +43,12 @@ export default function SearchBar() {
           placeholder="The Weeknd..."
           onChange={(value: any) => handleSearchTermInput(value)}
         />
-        <Button
+        {/* <Button
           onClick={handleSubmit}
           className="rounded-full bg-spotify_green px-3 py-2 text-spotify_white hover:bg-spotify_white hover:text-spotify_green"
         >
           Search
-        </Button>
+        </Button> */}
       </div>
 
       {displayTerm ? (
