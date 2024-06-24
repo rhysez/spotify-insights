@@ -57,7 +57,7 @@ export default function SearchItemCard({ searchItem }: any) {
         <TooltipContent className="border-0 bg-transparent">
           {searchItem.genres.length ? (
             searchItem.genres.map((genre: any, index: number) => (
-              <p className="m-2 rounded-full bg-gradient-to-r from-spotify_white to-spotify_green p-2 text-center font-semibold shadow-lg">
+              <p key={index} className="m-2 rounded-full bg-gradient-to-r from-spotify_white to-spotify_green p-2 text-center font-semibold shadow-lg">
                 {genre}
               </p>
             ))
