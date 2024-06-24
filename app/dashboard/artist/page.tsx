@@ -47,7 +47,7 @@ export default function Page() {
           />
         </div>
       ) : null}
-        <h2 className="text-center text-transparent bg-clip-text bg-gradient-to-r from-spotify_white to-spotify_green text-4xl font-bold md:text-7xl absolute left-0 right-0 bottom-6">
+        <h2 className="text-center mx-auto h-28 text-transparent bg-clip-text bg-gradient-to-r from-spotify_white via-spotify_white from-10% via-spotify_green via-30% to-spotify_green text-4xl font-bold md:text-7xl absolute left-0 right-0 bottom-2">
           {artist.name}
         </h2>
       </section>
@@ -58,7 +58,7 @@ export default function Page() {
       </div>
       <MetricsIcons
         popularity={artist.popularity}
-        followers={artist.followers.total.toLocaleString('en-US', {minimumFractionDigits: 2})}
+        followers={artist.followers.total.toLocaleString()}
       />
     </main>
   );
