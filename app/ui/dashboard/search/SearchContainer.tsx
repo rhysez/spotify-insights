@@ -39,16 +39,10 @@ export default function SearchBar() {
       <div className="flex items-center justify-center space-x-2">
         <Input
           type="text"
-          className="rounded-full border-2 px-3 py-2 text-spotify_black sm:w-80"
+          className="rounded-full border-2 focus:border-spotify_green px-3 py-2 text-spotify_black sm:w-80"
           placeholder="The Weeknd..."
           onChange={(value: any) => handleSearchTermInput(value)}
         />
-        {/* <Button
-          onClick={handleSubmit}
-          className="rounded-full bg-spotify_green px-3 py-2 text-spotify_white hover:bg-spotify_white hover:text-spotify_green"
-        >
-          Search
-        </Button> */}
       </div>
 
       {displayTerm ? (

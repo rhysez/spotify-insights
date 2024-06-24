@@ -1,18 +1,26 @@
 'use client';
-import { HomeIcon, MagnifyingGlassIcon, TagIcon, UserIcon } from '@heroicons/react/24/outline';
+import {
+  HomeIcon,
+  MagnifyingGlassIcon,
+  TagIcon,
+  UserIcon,
+} from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 
-// Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
 const links = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon },
   {
     name: 'Categories',
     href: '/dashboard/categories',
-    icon: TagIcon
+    icon: TagIcon,
   },
+  {
+    name: 'Profile',
+    href: '/dashboard/profile',
+    icon: UserIcon
+  }
 ];
 
 export default function NavLinks() {
@@ -26,9 +34,10 @@ export default function NavLinks() {
             key={link.name}
             href={link.href}
             className={clsx(
-              'flex h-[48px] grow items-center justify-center gap-2 bg-spotify_dark_gray p-3 text-sm font-medium text-slate-200 hover:bg-spotify_link_active hover:text-spotify_green md:flex-none md:justify-start md:p-2 md:px-3',
+              'flex h-[48px] grow items-center justify-center gap-2 bg-spotify_dark_gray p-3 text-sm font-medium text-slate-200 transition-all ease-in-out hover:bg-spotify_link_active hover:text-spotify_green md:flex-none md:justify-start md:p-2 md:px-3',
               {
-                'bg-spotify_link_active text-spotify_green md:border-r-2 border-spotify_green': pathname === link.href,
+                'border-spotify_green bg-spotify_link_active text-spotify_green md:border-r-2':
+                  pathname === link.href,
               },
             )}
           >
