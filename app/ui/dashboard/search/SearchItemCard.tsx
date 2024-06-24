@@ -17,7 +17,7 @@ export default function SearchItemCard({ searchItem }: any) {
   return (
     <Link href={{
       pathname: '/dashboard/artist',
-      query: { slug: searchItem.name }
+      query: { artist: searchItem.id }
       }}>
       <Card
         className={clsx(
