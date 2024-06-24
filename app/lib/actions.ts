@@ -1,5 +1,6 @@
 'use server'
 import { getSpotifyToken } from "./data";
+import { redirect } from "next/navigation";
 
 export async function getManyArtists(searchTerm: string) {
   if (!searchTerm) return;
