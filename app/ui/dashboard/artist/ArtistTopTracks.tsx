@@ -8,6 +8,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import clsx from 'clsx';
+import { DateTime } from "luxon";
 
 export default function ArtistTopTracks({ tracks }: any) {
   return (
@@ -34,7 +35,7 @@ export default function ArtistTopTracks({ tracks }: any) {
                       {track.album.name}
                     </TableCell>
                     <TableCell className="bg-spotify_dark_gray">
-                      {track.album.release_date}
+                      {DateTime.fromSQL(track.album.release_date).toLocaleString(DateTime.DATE_MED)}
                     </TableCell>
                     <TableCell
                       className={clsx('bg-spotify_green text-center font-bold', {
