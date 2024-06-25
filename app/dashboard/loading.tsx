@@ -1,4 +1,4 @@
-import LoadingCategories from "./categories/LoadingCategories"
+
 import { Skeleton } from "@/components/ui/skeleton"
 
 export default function Loading() {
