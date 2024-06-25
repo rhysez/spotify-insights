@@ -1,6 +1,10 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
-import { getOneArtist, getArtistAlbums } from '@/app/lib/actions';
+import {
+  getOneArtist,
+  getArtistAlbums,
+  getArtistTopTracks,
+} from '@/app/lib/actions';
 import { useEffect, useState } from 'react';
 import { Artist } from '@/app/lib/definitions';
 import Loading from './loading';
@@ -10,13 +14,15 @@ import MetricsIcons from '@/app/ui/dashboard/artist/MetricsIcons';
 import GenreList from '@/app/ui/dashboard/artist/GenreList';
 import { Button } from '@/components/ui/button';
 import ArtistAlbums from '@/app/ui/dashboard/artist/ArtistAlbums';
+import ArtistTopTracks from '@/app/ui/dashboard/artist/ArtistTopTracks';
 
 export default function Page() {
   const searchParams = useSearchParams();
   const artistId: any = searchParams.get('artist');
 
   const [artist, setArtist] = useState<Artist | any>(null);
-  const [albums, setAlbums] = useState(null);
+  const [albums, setAlbums] = useState<any>(null);
+  const [topTracks, setTopTracks] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -46,6 +52,21 @@ export default function Page() {
     fetchAlbums();
   }, []);
 
+  useEffect(() => {
+    async function fetchTopTracks() {
+      try {
+        const response = await getArtistTopTracks(artistId);
+        setTopTracks(response.tracks);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchTopTracks();
+  }, []);
+
+  console.log(topTracks.tracks);
+
   if (loading) {
     return <Loading />;
   }
@@ -64,7 +85,7 @@ export default function Page() {
             />
           </div>
         ) : null}
-        <h2 className="absolute bottom-2 left-0 right-0 mx-auto h-28 bg-gradient-to-r from-spotify_white from-10% via-spotify_green via-spotify_white via-20% to-spotify_green bg-clip-text text-center text-4xl font-bold text-transparent md:text-7xl shadow">
+        <h2 className="absolute bottom-2 left-0 right-0 mx-auto h-28 bg-gradient-to-r from-spotify_white from-10% via-spotify_green via-spotify_white via-20% to-spotify_green bg-clip-text text-center text-4xl font-bold text-transparent md:text-7xl">
           {artist.name}
         </h2>
       </section>
@@ -83,6 +104,11 @@ export default function Page() {
         followers={artist.followers.total.toLocaleString()}
       />
       <GenreList genres={artist.genres} />
+
+      <section className="mx-auto w-[80%]">
+        <ArtistTopTracks tracks={topTracks} />
+      </section>
+
       <ArtistAlbums albums={albums} />
     </main>
   );
