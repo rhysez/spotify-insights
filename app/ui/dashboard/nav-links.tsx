@@ -4,17 +4,18 @@ import {
   MagnifyingGlassIcon,
   TagIcon,
   UserIcon,
+  EyeIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 
 const links = [
-  { name: 'Home', href: '/dashboard', icon: HomeIcon },
+  { name: 'Search', href: '/dashboard', icon: MagnifyingGlassIcon },
   {
-    name: 'Categories',
-    href: '/dashboard/categories',
-    icon: TagIcon,
+    name: 'Tracking',
+    href: '/dashboard/tracking',
+    icon: EyeIcon
   },
   {
     name: 'Profile',
