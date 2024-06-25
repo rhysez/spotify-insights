@@ -13,7 +13,7 @@ export default function Page() {
         <div className="flex flex-col justify-center gap-6 bg-gray-50 px-6 py-10 md:w-2/5 md:px-20">
           <p className={`text-xl text-gray-800 md:text-3xl md:leading-normal`}>
             <strong>Spotify Insights</strong> <br />
-            Delivering a detailed view of your spotify profile.
+            Delivering digestible artist analytics from Spotify.
           </p>
           <Link
             href="/login"

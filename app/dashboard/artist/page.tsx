@@ -46,8 +46,6 @@ export default function Page() {
     fetchAlbums();
   }, []);
 
-  console.log(albums)
-
   if (loading) {
     return <Loading />;
   }
@@ -66,7 +64,7 @@ export default function Page() {
             />
           </div>
         ) : null}
-        <h2 className="absolute bottom-2 left-0 right-0 mx-auto h-28 bg-gradient-to-r from-spotify_white from-10% via-spotify_green via-spotify_white via-30% to-spotify_green bg-clip-text text-center text-4xl font-bold text-transparent md:text-7xl">
+        <h2 className="absolute bottom-2 left-0 right-0 mx-auto h-28 bg-gradient-to-r from-spotify_white from-10% via-spotify_green via-spotify_white via-20% to-spotify_green bg-clip-text text-center text-4xl font-bold text-transparent md:text-7xl shadow">
           {artist.name}
         </h2>
       </section>
@@ -74,7 +72,7 @@ export default function Page() {
         <Button className="border-2 border-transparent bg-spotify_green font-semibold hover:bg-spotify_white hover:text-spotify_green">
           Start Tracking Artist
         </Button>
-        <Link href={"https://open.spotify.com/artist/" + artist.id}>
+        <Link href={'https://open.spotify.com/artist/' + artist.id}>
           <Button className="border-2 border-spotify_green bg-transparent font-semibold hover:bg-spotify_white hover:text-spotify_green">
             Go To Artist&apos;s Spotify
           </Button>

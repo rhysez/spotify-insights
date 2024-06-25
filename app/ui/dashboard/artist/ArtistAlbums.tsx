@@ -11,7 +11,7 @@ export default function ArtistAlbums({ albums }: any) {
   return (
     <>
     <h2 className="text-center font-bold text-5xl">Albums</h2>
-      <Carousel className="lg:w-[75%] mx-auto">
+      <Carousel className="w-[80%] mx-auto">
       <CarouselContent>
         {albums
           ? albums.items.map((album: any, index: any) => {
