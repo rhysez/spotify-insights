@@ -65,8 +65,6 @@ export default function Page() {
     fetchTopTracks();
   }, []);
 
-  console.log(topTracks.tracks);
-
   if (loading) {
     return <Loading />;
   }
