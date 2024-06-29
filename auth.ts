@@ -4,31 +4,70 @@ import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import type { User } from '@/app/lib/definitions';
+import { Session } from 'next-auth';
 import bcrypt from 'bcrypt';
- 
+
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
+      name: 'Credentials',
       async authorize(credentials) {
         const parsedCredentials = z
           .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);
 
-          if (parsedCredentials.success) {
+        if (parsedCredentials.success) {
+          try {
             const { email, password } = parsedCredentials.data;
-            const user = await getUser(email);
+            const user: any = await getUser(email);
             if (!user) return null;
-            const passwordsMatch = await bcrypt.compare(password, user.password);
-
-            if (passwordsMatch) return user;
+            return user;
+          } catch {
+            return null;
           }
-
-          console.log('Invalid credentials');
-          return null;
+        }
       },
     }),
   ],
+
+  session: {
+    strategy: 'jwt',
+  },
+
+  callbacks: {
+    // we create a token and give it a .user property
+    // we assign the .user property to the user object
+    // we then pass the user object down to the session callback
+    // and assign it via session.user
+    async jwt({ token, user, session }) {
+      if (user) {
+        token.user = user;
+      }
+      return {
+        ...token,
+      };
+    },
+
+    // this function allows us to access the session
+    // within the actual application
+    // by calling the auth() function on client
+    async session({
+      session,
+      token,
+      user,
+    }: {
+      session: Session;
+      token?: any;
+      user?: any;
+    }) {
+      session.user = token.user;
+      return {
+        ...session,
+        user: token.user,
+      };
+    },
+  },
 });
 
 async function getUser(email: string): Promise<User | undefined> {
