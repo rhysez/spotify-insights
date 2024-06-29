@@ -37,6 +37,10 @@
     "use-debounce": "^10.0.1",
     "zod": "^3.22.2"
   },
+  "overrides": {
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc"
+  },
   "devDependencies": {
     "@types/bcrypt": "^5.0.1",
     "@types/luxon": "^3.4.2",
