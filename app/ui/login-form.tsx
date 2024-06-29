@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from './button';
-import { useActionState } from "react";
+import { useActionState } from 'react';
 import { authenticate } from '@/app/lib/actions';
 
 export default function LoginForm() {
@@ -17,12 +17,12 @@ export default function LoginForm() {
   );
 
   return (
-    <form action={formAction} className="h-full space-y-3 px-6 pb-4 pt-8">
-      <div className="flex-1 rounded-lg ">
-        <h1 className={`${inter.className} mb-3 text-center text-2xl`}>
-          Log in to your account
-        </h1>
-        <div className="mx-auto md:w-[50%] lg:w-[35%] xl:w-[25%]">
+    <form action={formAction} className="h-full space-y-3 px-2 pb-4 pt-8">
+      <div className="flex justify-center rounded-lg ">
+        <div className="mx-auto w-[95%] md:w-[70%] lg:w-[40%] xl:w-[30%] bg-spotify_dark_gray border-[1px] border-spotify_link_active rounded-md p-4">
+          <h1 className={`${inter.className} mb-3 text-center text-2xl`}>
+            Log in to your account
+          </h1>
           <div>
             <label
               className="mb-3 mt-5 block text-xs  text-spotify_white"
@@ -32,7 +32,7 @@ export default function LoginForm() {
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 text-spotify_black"
+                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm text-spotify_black outline-2 placeholder:text-gray-500"
                 id="email"
                 type="email"
                 name="email"
@@ -51,7 +51,7 @@ export default function LoginForm() {
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 text-spotify_black placeholder:text-gray-500"
+                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm text-spotify_black outline-2 placeholder:text-gray-500"
                 id="password"
                 type="password"
                 name="password"
@@ -90,7 +90,7 @@ function LoginButton() {
 
 function SignupButton() {
   return (
-    <Button className="mt-4 w-full bg-purple-400 text-spotify_white transition-all ease-in-out hover:bg-spotify_white hover:text-purple-400">
+    <Button className="mt-4 w-full bg-spotify_white text-spotify_link_active border-2 border-spotify_green transition-all ease-in-out hover:bg-spotify_white hover:text-spotify_green">
       Create an account{' '}
       <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
     </Button>
