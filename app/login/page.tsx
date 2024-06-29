@@ -2,7 +2,7 @@ import Icon from '@mdi/react';
 import { mdiSpotify } from '@mdi/js';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import LoginForm from './ui/login-form';
+import LoginForm from '@/app/ui/login-form';
 
 export default function Page() {
   return (
