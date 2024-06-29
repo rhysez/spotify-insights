@@ -1,10 +1,10 @@
-
+'use client';
 import Link from 'next/link';
 import NavLinks from '@/app/ui/dashboard/nav-links';
 import Icon from '@mdi/react';
 import { mdiSpotify } from '@mdi/js';
 import { PowerIcon } from '@heroicons/react/24/outline';
-import { signOut } from '@/auth';
+import { signOutAction } from '@/app/lib/actions';
 
 export default function SideNav() {
   return (
@@ -24,10 +24,7 @@ export default function SideNav() {
             </button>
           </Link>
           <form
-            action={async () => {
-              'use server';
-              await signOut();
-            }}
+            action={signOutAction}
           >
             <button className="flex h-[48px] w-full grow items-center justify-center gap-2 border-spotify_green bg-spotify_dark_gray p-3 text-sm font-medium text-slate-200 hover:bg-spotify_link_active hover:text-spotify_green md:flex-none md:justify-start md:border-t-2 md:p-2 md:px-3">
               <PowerIcon className="w-6" />
