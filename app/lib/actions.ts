@@ -1,7 +1,8 @@
-'use server'
-import { getSpotifyToken } from "./data";
+'use server';
+import { getSpotifyToken } from './data';
 import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
+const bcrypt = require('bcrypt');
 
 export async function getManyArtists(searchTerm: string) {
   if (!searchTerm) return;
@@ -29,15 +30,12 @@ export async function getOneArtist(id: string) {
 
   const token = await getSpotifyToken();
   try {
-    const response = await fetch(
-      `https://api.spotify.com/v1/artists/${id}`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
+    const response = await fetch(`https://api.spotify.com/v1/artists/${id}`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
       },
-    );
+    });
 
     return await response.json();
   } catch (error) {

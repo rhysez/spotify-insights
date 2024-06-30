@@ -1,8 +1,10 @@
-const { db } = require('@vercel/postgres');
-const { users } = require('../app/lib/placeholder-data.js');
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
+import { db } from '@vercel/postgres';
+import { users } from '../lib/placeholder-data';
 
-async function seedUsers(client) {
+const client = await db.connect();
+
+async function seedUsers() {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
     // Create the "users" table if it doesn't exist
@@ -42,17 +44,15 @@ async function seedUsers(client) {
   }
 }
 
-async function main() {
-  const client = await db.connect();
+export async function GET() {
+  try {
+    await client.sql`BEGIN`;
+    await seedUsers();
+    await client.sql`COMMIT`;
 
-  await seedUsers(client);
-
-  await client.end();
+    return Response.json({ message: 'Database seeded successfully' });
+  } catch (error) {
+    await client.sql`ROLLBACK`;
+    return Response.json({ error }, { status: 500 });
+  }
 }
-
-main().catch((err) => {
-  console.error(
-    'An error occurred while attempting to seed the database:',
-    err,
-  );
-});

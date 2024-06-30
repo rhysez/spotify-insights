@@ -19,8 +19,6 @@ export default function LoginForm() {
     undefined,
   );
 
-  console.log(isPending);
-
   if (isPending) {
     return (
       <ArrowPathIcon className="mx-auto mt-24 h-24 w-24 animate-spin rounded-full border-[1px] border-spotify_link_active bg-spotify_dark_gray p-2 text-center text-spotify_green" />
@@ -68,7 +66,7 @@ export default function LoginForm() {
                 name="password"
                 placeholder="Enter password"
                 required
-                minLength={6}
+                minLength={4}
               />
               <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-spotify_black peer-focus:text-gray-900" />
             </div>
@@ -77,14 +75,14 @@ export default function LoginForm() {
             <LoginButton aria-disabled={isPending} />
             <SignupButton />
           </div>
-        </div>
-        <div className="flex h-8 items-end space-x-1">
+          <div className="flex items-end space-x-1">
           {errorMessage && (
-            <>
+            <div className="p-2 flex mx-auto gap-1">
               <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
               <p className="text-sm text-red-500">{errorMessage}</p>
-            </>
+            </div>
           )}
+        </div>
         </div>
       </div>
     </form>
