@@ -5,17 +5,27 @@ import {
   KeyIcon,
   ExclamationCircleIcon,
 } from '@heroicons/react/24/outline';
-import { ArrowRightIcon } from '@heroicons/react/20/solid';
+import { ArrowRightIcon, ArrowPathIcon } from '@heroicons/react/20/solid';
 import { Button } from './button';
 import { useActionState } from 'react';
 import { authenticate } from '@/app/lib/actions';
 import Link from 'next/link';
+import { mdiSpotify } from '@mdi/js';
+import Icon from '@mdi/react';
 
 export default function LoginForm() {
   const [errorMessage, formAction, isPending] = useActionState(
     authenticate,
     undefined,
   );
+
+  console.log(isPending);
+
+  if (isPending) {
+    return (
+      <ArrowPathIcon className="mx-auto mt-24 h-24 w-24 animate-spin rounded-full border-[1px] border-spotify_link_active bg-spotify_dark_gray p-2 text-center text-spotify_green" />
+    );
+  }
 
   return (
     <form action={formAction} className="h-full space-y-3 px-2 pb-4 pt-8">
@@ -91,10 +101,9 @@ function LoginButton() {
 
 function SignupButton() {
   return (
-    <Link href='/signup'>
+    <Link href="/signup">
       <Button className="mt-4 w-full border-2 border-spotify_green bg-spotify_white text-spotify_link_active transition-all ease-in-out hover:bg-spotify_white hover:text-spotify_green">
-        Sign up{' '}
-        <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+        Sign up <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
       </Button>
     </Link>
   );
