@@ -1,6 +1,13 @@
 import { sql } from '@vercel/postgres';
 import { User } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
+import { auth } from '@/auth';
+
+export async function getCurrentSession() {
+    const session = await auth();
+    const user = session?.user;
+    return user;
+}
 
 export async function getUser(email: string) {
   noStore();

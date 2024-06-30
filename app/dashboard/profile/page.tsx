@@ -1,5 +1,11 @@
-
+import { getCurrentSession } from "@/app/lib/data";
 
 export default async function Page() {
-  return <p>Profile page</p>
+  
+
+  const user: any = await getCurrentSession();
+
+  return (
+    <p>Email: {user.email}</p>
+  )
 } 

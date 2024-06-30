@@ -1,15 +1,9 @@
 import SideNav from '@/app/ui/dashboard/sidenav';
-import { auth } from '@/auth';
+import { getCurrentSession } from "@/app/lib/data";
  
 export default async function Layout({ children }: { children: React.ReactNode }) {
 
-  async function getUser() {
-    const session = await auth();
-    const user = session?.user;
-    return user;
-  }
-
-  const user: any = await getUser();
+  const user: any = await getCurrentSession();
 
   console.log("Logged in as", user.email);
 
