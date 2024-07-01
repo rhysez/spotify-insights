@@ -76,6 +76,8 @@ export default function ArtistPage({ userId }: any) {
     fetchFavourite();
   }, []);
 
+  console.log(favourite)
+
   const handleAddToFavourites = async () => {
     try {
       const favourite = await addToFavourites(userId, artist.id, artist.name);

@@ -142,9 +142,14 @@ export async function addToFavourites(user_id: string, artist_id: string, artist
 
 export async function getFavourite(artistId: string, userId: string) {
   const favourite =
-    await sql`SELECT * FROM favourites WHERE artist_id = ${artistId} AND user_id = ${userId}`;
+    await sql`
+    SELECT * 
+    FROM favourites 
+    WHERE artist_id=${artistId} 
+    AND user_id=${userId}
+    `;
   
-  if (favourite) {
+  if (favourite.rowCount) {
     return true;
   } else {
     return false;
@@ -152,8 +157,11 @@ export async function getFavourite(artistId: string, userId: string) {
 }
 
 export async function deleteFavourite(artistId: string, userId: string) {
-  const favourite =
-    await sql`DELETE FROM favourites WHERE artist_id=${artistId} AND user_id = ${userId}`;
+  await sql`
+  DELETE FROM favourites 
+  WHERE artist_id=${artistId} 
+  AND user_id=${userId}
+  `;
   
   return true;
 }
