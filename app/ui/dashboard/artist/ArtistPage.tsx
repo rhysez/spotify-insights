@@ -19,7 +19,7 @@ import { addToFavourites } from '@/app/lib/actions';
 import { getCurrentSession } from '@/app/lib/data';
 import { useToast } from '@/components/ui/use-toast';
 
-export default function ArtistPage() {
+export default function ArtistPage({userId}: any) {
   const searchParams = useSearchParams();
   const artistId: any = searchParams.get('artist');
 
@@ -71,11 +71,10 @@ export default function ArtistPage() {
   }, []);
 
   const handleAddToFavourites = async () => {
-    const user: any = await getCurrentSession();
     try {
-      if (user) {
+      
         const favourite = await addToFavourites(
-          user.id,
+          userId,
           artist.id,
           artist.name,
         );
@@ -85,7 +84,7 @@ export default function ArtistPage() {
             description: 'Now check your favourites tab',
           });
         }
-      }
+      
     } catch (error) {
       console.log(error);
     }

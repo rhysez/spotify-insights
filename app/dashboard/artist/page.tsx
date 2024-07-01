@@ -1,8 +1,11 @@
 import ArtistPage from "@/app/ui/dashboard/artist/ArtistPage";
+import { getCurrentSession } from '@/app/lib/data';
 
-export default function Page() {
+export default async function Page() {
+
+  const user: any = await getCurrentSession();
 
   return (
-    <ArtistPage />
+    <ArtistPage userId={user.id} />
   );
 }
