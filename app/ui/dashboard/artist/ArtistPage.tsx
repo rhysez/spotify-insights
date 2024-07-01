@@ -4,6 +4,9 @@ import {
   getOneArtist,
   getArtistAlbums,
   getArtistTopTracks,
+  getFavourite,
+  deleteFavourite,
+  addToFavourites,
 } from '@/app/lib/actions';
 import { useEffect, useState } from 'react';
 import { Artist } from '@/app/lib/definitions';
@@ -15,11 +18,11 @@ import GenreList from '@/app/ui/dashboard/artist/GenreList';
 import { Button } from '@/components/ui/button';
 import ArtistAlbums from '@/app/ui/dashboard/artist/ArtistAlbums';
 import ArtistTopTracks from '@/app/ui/dashboard/artist/ArtistTopTracks';
-import { addToFavourites } from '@/app/lib/actions';
-import { getCurrentSession } from '@/app/lib/data';
 import { useToast } from '@/components/ui/use-toast';
+import { ArrowRightIcon, ArrowPathIcon } from '@heroicons/react/20/solid';
 
-export default function ArtistPage({userId}: any) {
+// TO DO: Refactor entire component
+export default function ArtistPage({ userId }: any) {
   const searchParams = useSearchParams();
   const artistId: any = searchParams.get('artist');
 
@@ -27,6 +30,7 @@ export default function ArtistPage({userId}: any) {
   const [albums, setAlbums] = useState<any>(null);
   const [topTracks, setTopTracks] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [favourite, setFavourite] = useState<boolean | 'pending'>('pending');
 
   const { toast } = useToast();
 
@@ -40,11 +44,6 @@ export default function ArtistPage({userId}: any) {
         console.log(error);
       }
     }
-
-    fetchArtist();
-  }, []);
-
-  useEffect(() => {
     async function fetchAlbums() {
       try {
         const response = await getArtistAlbums(artistId);
@@ -53,11 +52,6 @@ export default function ArtistPage({userId}: any) {
         console.log(error);
       }
     }
-
-    fetchAlbums();
-  }, []);
-
-  useEffect(() => {
     async function fetchTopTracks() {
       try {
         const response = await getArtistTopTracks(artistId);
@@ -67,27 +61,43 @@ export default function ArtistPage({userId}: any) {
       }
     }
 
+    async function fetchFavourite() {
+      try {
+        const response = await getFavourite(artistId);
+        setFavourite(response);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchArtist();
     fetchTopTracks();
+    fetchAlbums();
+    fetchFavourite();
   }, []);
 
   const handleAddToFavourites = async () => {
     try {
-      
-        const favourite = await addToFavourites(
-          userId,
-          artist.id,
-          artist.name,
-        );
-        if (favourite) {
-          toast({
-            title: `${artist.name} has been added to your favourites!`,
-            description: 'Now check your favourites tab',
-          });
-        }
-      
+      const favourite = await addToFavourites(userId, artist.id, artist.name);
+      if (favourite) {
+        toast({
+          title: `${artist.name} has been added to your favourites!`,
+          description: 'Now check your favourites tab',
+        });
+        setFavourite(true);
+      }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleDeleteFavourite = async () => {
+    await deleteFavourite(artistId);
+    toast({
+      title: `${artist.name} has been deleted from your favourites!`,
+      description: 'You can always re-add them in the future',
+    });
+    setFavourite(false);
   };
 
   if (loading) {
@@ -113,12 +123,28 @@ export default function ArtistPage({userId}: any) {
         </h2>
       </section>
       <div className="flex justify-center gap-2">
-        <Button
-          onClick={handleAddToFavourites}
-          className="border-2 border-transparent bg-spotify_green font-semibold hover:bg-spotify_white hover:text-spotify_green"
-        >
-          Add To Favourites
-        </Button>
+        {!favourite ? (
+          <Button
+            onClick={handleAddToFavourites}
+            className="border-2 border-transparent bg-spotify_green font-semibold hover:bg-spotify_white hover:text-spotify_green"
+          >
+            Add To Favourites
+          </Button>
+        ) : favourite == 'pending' ? (
+          <Button
+            disabled
+            className="border-2 w-36 border-transparent bg-spotify_dark_gray font-semibold"
+          >
+            <ArrowPathIcon className="mx-auto h-6 w-6 animate-spin rounded-full text-center text-spotify_green" />
+          </Button>
+        ) : (
+          <Button
+            onClick={handleDeleteFavourite}
+            className="border-2 border-transparent bg-red-500 font-semibold hover:bg-red-400"
+          >
+            Remove from favourites
+          </Button>
+        )}
         <Link href={'https://open.spotify.com/artist/' + artist.id}>
           <Button className="border-2 border-spotify_green bg-transparent font-semibold hover:bg-spotify_white hover:text-spotify_green">
             Go To Artist&apos;s Spotify

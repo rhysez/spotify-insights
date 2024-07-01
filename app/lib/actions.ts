@@ -139,3 +139,22 @@ export async function addToFavourites(user_id: string, artist_id: string, artist
     throw new Error('Failed to add artist to favourites');
   }
 }
+
+export async function getFavourite(artistId: string) {
+  const favourite =
+    await sql`SELECT * FROM favourites WHERE artist_id=${artistId}`;
+  
+  if (favourite) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export async function deleteFavourite(artistId: string) {
+  const favourite =
+    await sql`DELETE FROM favourites WHERE artist_id=${artistId}`;
+  
+  return true;
+}
+
