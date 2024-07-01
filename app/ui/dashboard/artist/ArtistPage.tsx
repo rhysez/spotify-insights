@@ -63,7 +63,7 @@ export default function ArtistPage({ userId }: any) {
 
     async function fetchFavourite() {
       try {
-        const response = await getFavourite(artistId);
+        const response = await getFavourite(artistId, userId);
         setFavourite(response);
       } catch (error) {
         console.log(error);
@@ -92,7 +92,7 @@ export default function ArtistPage({ userId }: any) {
   };
 
   const handleDeleteFavourite = async () => {
-    await deleteFavourite(artistId);
+    await deleteFavourite(artistId, userId);
     toast({
       title: `${artist.name} has been deleted from your favourites!`,
       description: 'You can always re-add them in the future',
