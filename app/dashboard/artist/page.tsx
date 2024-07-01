@@ -89,7 +89,7 @@ export default function Page() {
       </section>
       <div className="flex justify-center gap-2">
         <Button className="border-2 border-transparent bg-spotify_green font-semibold hover:bg-spotify_white hover:text-spotify_green">
-          Start Tracking Artist
+          Add To Favourites
         </Button>
         <Link href={'https://open.spotify.com/artist/' + artist.id}>
           <Button className="border-2 border-spotify_green bg-transparent font-semibold hover:bg-spotify_white hover:text-spotify_green">
