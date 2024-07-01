@@ -11,8 +11,10 @@ import Link from 'next/link';
 import { createAccount } from '../lib/actions';
 import { z } from 'zod';
 import { useState, useEffect } from 'react';
+import { useToast } from "@/components/ui/use-toast"
 
 export default function SignupForm() {
+  const { toast } = useToast()
 
   const [name, setName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
@@ -21,7 +23,13 @@ export default function SignupForm() {
 
   const validateForm = async () => {
     try {
-      await createAccount(name, username, email, password);
+      const account = await createAccount(name, username, email, password);
+      if (account) {
+        toast({
+          title: `Welcome aboard ${username}!`,
+          description: "You may now log into your account",
+        })
+      }
     } catch(error) {
       console.log(error)
     }

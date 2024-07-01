@@ -4,6 +4,7 @@ import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
 import { sql } from '@vercel/postgres';
 const bcrypt = require('bcrypt');
+import { redirect } from 'next/navigation';
 
 export async function getManyArtists(searchTerm: string) {
   if (!searchTerm) return;
@@ -91,6 +92,7 @@ export async function authenticate(
   formData: FormData,
 ) {
   try {
+    console.log(formData);
     await signIn('credentials', formData);
   } catch (error) {
     if (error instanceof AuthError) {
