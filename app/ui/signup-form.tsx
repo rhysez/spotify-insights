@@ -12,9 +12,11 @@ import { createAccount } from '../lib/actions';
 import { z } from 'zod';
 import { useState, useEffect } from 'react';
 import { useToast } from "@/components/ui/use-toast"
+import { useRouter } from 'next/navigation';
 
 export default function SignupForm() {
   const { toast } = useToast()
+  const { push } = useRouter();
 
   const [name, setName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
@@ -25,10 +27,11 @@ export default function SignupForm() {
     try {
       const account = await createAccount(name, username, email, password);
       if (account) {
+        push('/login');
         toast({
           title: `Welcome aboard ${username}!`,
           description: "You may now log into your account",
-        })
+        });
       }
     } catch(error) {
       console.log(error)
