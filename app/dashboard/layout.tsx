@@ -1,5 +1,6 @@
 import SideNav from '@/app/ui/dashboard/sidenav';
 import { getCurrentSession } from "@/app/lib/data";
+import { useToast } from "@/components/ui/use-toast"
  
 export default async function Layout({ children }: { children: React.ReactNode }) {
 
