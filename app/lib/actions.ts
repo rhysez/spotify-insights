@@ -2,6 +2,7 @@
 import { getSpotifyToken } from './data';
 import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
+import { sql } from '@vercel/postgres';
 const bcrypt = require('bcrypt');
 
 export async function getManyArtists(searchTerm: string) {
@@ -105,3 +106,23 @@ export async function authenticate(
 }
 
 export const signOutAction = async () => await signOut();
+
+// test values
+export async function createAccount(
+  name: string,
+  username: string,
+  email: string,
+  password: string,
+) {
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await sql`
+      INSERT INTO users (name, username, email, password)
+      VALUES (${name}, ${username}, ${email}, ${hashedPassword})
+    `;
+    return user;
+  } catch (error) {
+    console.error('Failed to create account:', error);
+    throw new Error('Failed to create account.');
+  }
+}

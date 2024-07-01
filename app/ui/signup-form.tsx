@@ -7,17 +7,28 @@ import {
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon, ArrowPathIcon } from '@heroicons/react/20/solid';
 import { Button } from './button';
-import { useActionState } from 'react';
-import { authenticate } from '@/app/lib/actions';
 import Link from 'next/link';
-import { mdiSpotify } from '@mdi/js';
-import Icon from '@mdi/react';
+import { createAccount } from '../lib/actions';
+import { z } from 'zod';
+import { useState, useEffect } from 'react';
 
 export default function SignupForm() {
 
+  const [name, setName] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const validateForm = async () => {
+    try {
+      await createAccount(name, username, email, password);
+    } catch(error) {
+      console.log(error)
+    }
+  };
 
   return (
-    <form className="h-full space-y-3 px-2 pb-4 pt-8">
+    <form action={validateForm} className="h-full space-y-3 px-2 pb-4 pt-8">
       <div className="flex justify-center rounded-lg ">
         <div className="mx-auto w-[95%] rounded-md border-[1px] border-spotify_link_active bg-spotify_dark_gray p-4 md:w-[70%] lg:w-[40%] xl:w-[30%]">
           <h1 className={`${inter.className} mb-3 text-center text-2xl`}>
@@ -38,6 +49,7 @@ export default function SignupForm() {
                 type="text"
                 name="name"
                 placeholder="Tell us your name"
+                onChange={e => setName(e.target.value)}
                 required
               />
               <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-spotify_black peer-focus:text-gray-900" />
@@ -58,6 +70,7 @@ export default function SignupForm() {
                 type="text"
                 name="username"
                 placeholder="Pick a cool username"
+                onChange={e => setUsername(e.target.value)}
                 required
               />
               <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-spotify_black peer-focus:text-gray-900" />
@@ -78,6 +91,7 @@ export default function SignupForm() {
                 type="email"
                 name="email"
                 placeholder="Enter your email address"
+                onChange={e => setEmail(e.target.value)}
                 required
               />
               <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-spotify_black peer-focus:text-gray-900" />
@@ -97,6 +111,7 @@ export default function SignupForm() {
                 type="password"
                 name="password"
                 placeholder="Enter password"
+                onChange={e => setPassword(e.target.value)}
                 required
                 minLength={4}
               />
@@ -104,34 +119,23 @@ export default function SignupForm() {
             </div>
           </div>
           <div className="mt-12">
-            <SignupButton />
-            <LoginButton />
+            <Button type='submit' className="mt-4 w-full border-2 border-spotify_green bg-spotify_white text-spotify_link_active transition-all ease-in-out hover:bg-spotify_white hover:text-spotify_green">
+              Create account{' '}
+              <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+            </Button>
+
+            <Link href="/login">
+              <Button className="mt-4 w-full bg-spotify_green text-spotify_white transition-all ease-in-out hover:bg-spotify_white hover:text-spotify_green">
+                Existing user? Log in{' '}
+                <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+              </Button>
+            </Link>
           </div>
           <div className="flex items-end space-x-1">
-          {/* Error msg can go here */}
-        </div>
+            {/* Error msg can go here */}
+          </div>
         </div>
       </div>
     </form>
-  );
-}
-
-function LoginButton() {
-  return (
-    <Link href="/login">
-    <Button className="mt-4 w-full bg-spotify_green text-spotify_white transition-all ease-in-out hover:bg-spotify_white hover:text-spotify_green">
-      Existing user? Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
-    </Button>
-    </Link>
-  );
-}
-
-function SignupButton() {
-  return (
-    
-      <Button className="mt-4 w-full border-2 border-spotify_green bg-spotify_white text-spotify_link_active transition-all ease-in-out hover:bg-spotify_white hover:text-spotify_green">
-        Create account <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
-      </Button>
-    
   );
 }
