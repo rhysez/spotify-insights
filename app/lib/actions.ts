@@ -128,11 +128,11 @@ export async function createAccount(
   }
 }
 
-export async function addToFavourites(user_id: string, artist_id: string, artist_name: string){
+export async function addToFavourites(user_id: string, artist_id: string, artist_name: string, artist_image: string){
   try {
     return await sql`
-    INSERT INTO favourites (user_id, artist_id, artist_name)
-    VALUES (${user_id}, ${artist_id}, ${artist_name})
+    INSERT INTO favourites (user_id, artist_id, artist_name, artist_image)
+    VALUES (${user_id}, ${artist_id}, ${artist_name}, ${artist_image})
   `;
   } catch (error) {
     console.error('Failed to add artist to favourites:', error);
