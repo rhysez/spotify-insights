@@ -66,3 +66,23 @@ export async function getCategories() {
     console.error('Failed to fetch categories:', error);
   }
 }
+
+export async function getFavourites(userId: string) {
+  noStore();
+  try {
+    const favourites =
+    await sql`
+    SELECT * 
+    FROM favourites 
+    WHERE user_id=${userId} 
+    `;
+  
+  if (favourites.rowCount) {
+    return favourites.rows;
+  } else {
+    return false;
+  }
+  } catch(error) {
+    console.log(error)
+  }
+}
