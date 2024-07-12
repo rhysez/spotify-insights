@@ -55,7 +55,9 @@ async function seedFavourites() {
         artist_id TEXT NOT NULL,
         artist_name TEXT NOT NULL,
         artist_image TEXT NOT NULL,
-        genres text[]
+        genres text[],
+        popularity TEXT NOT NULL,
+        follower_count TEXT NOT NULL
       );
     `;
 
