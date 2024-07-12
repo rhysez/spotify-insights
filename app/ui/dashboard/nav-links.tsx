@@ -19,8 +19,8 @@ const links = [
     icon: HeartIcon
   },
   {
-    name: 'Recommendations',
-    href: '/dashboard/recommendations',
+    name: 'Your Stats',
+    href: '/dashboard/stats',
     icon: TagIcon
   },
   {
