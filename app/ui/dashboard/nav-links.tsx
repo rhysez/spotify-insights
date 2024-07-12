@@ -2,7 +2,7 @@
 import {
   HomeIcon,
   MagnifyingGlassIcon,
-  TagIcon,
+  ChartBarIcon,
   UserIcon,
   EyeIcon,
   HeartIcon
@@ -21,7 +21,7 @@ const links = [
   {
     name: 'Your Stats',
     href: '/dashboard/stats',
-    icon: TagIcon
+    icon: ChartBarIcon
   },
   {
     name: 'Profile',

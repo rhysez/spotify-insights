@@ -5,6 +5,8 @@ export default async function Page() {
   const user: any = await getCurrentSession();
 
   return (
-    <p>Email: {user.email}</p>
+    <main>
+      
+    </main>
   )
 } 
