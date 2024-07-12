@@ -3,7 +3,7 @@ import { ResponsivePie } from '@nivo/pie';
 
 export default function Pie({ data }: any) {
   return (
-    <div className="h-[30rem] w-[30rem]">
+    <div className="md:h-[30rem] md:w-[30rem] w-[24rem] h-[24rem]">
       <ResponsivePie
         data={data}
         margin={{ top: 0, right: 120, bottom: 0, left: 120 }}

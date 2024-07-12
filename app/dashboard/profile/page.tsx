@@ -4,7 +4,7 @@ export default async function Page() {
   const user: any = await getCurrentSession();
 
   return (
-    <main>
+    <main className="text-center md:text-left">
       <h1 className="text-4xl font-bold">Your Details</h1>
 
       <section className="mt-10">
