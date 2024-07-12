@@ -80,7 +80,7 @@ export default function ArtistPage({ userId }: any) {
 
   const handleAddToFavourites = async () => {
     try {
-      const favourite = await addToFavourites(userId, artist.id, artist.name, artist.images[0].url);
+      const favourite = await addToFavourites(userId, artist.id, artist.name, artist.images[0].url, artist.genres, artist.popularity, artist.followers.total);
       if (favourite) {
         toast({
           title: `${artist.name} has been added to your favourites!`,

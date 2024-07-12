@@ -2,7 +2,7 @@
 import {
   HomeIcon,
   MagnifyingGlassIcon,
-  TagIcon,
+  ChartBarIcon,
   UserIcon,
   EyeIcon,
   HeartIcon
@@ -19,9 +19,9 @@ const links = [
     icon: HeartIcon
   },
   {
-    name: 'Recommendations',
-    href: '/dashboard/recommendations',
-    icon: TagIcon
+    name: 'Your Stats',
+    href: '/dashboard/stats',
+    icon: ChartBarIcon
   },
   {
     name: 'Profile',
