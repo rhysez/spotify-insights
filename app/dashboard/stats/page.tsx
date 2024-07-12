@@ -84,7 +84,7 @@ export default async function Page() {
 
   return (
     <main>
-      <h1 className="text-center text-6xl font-bold bg-gradient-to-r from-spotify_white to-spotify_green bg-clip-text text-transparent">
+      <h1 className="text-center md:text-6xl text-2xl font-bold bg-gradient-to-r from-spotify_white to-spotify_green bg-clip-text text-transparent">
         Based On Your Favourites
       </h1>
       <section className="mt-16">

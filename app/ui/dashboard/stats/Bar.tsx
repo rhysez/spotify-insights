@@ -8,7 +8,7 @@ import { ResponsiveBar } from '@nivo/bar'
 // website examples showcase many properties,
 // you'll often use just a few of them.
 const Bar = ({ data }: any) => (
-    <div className="w-full h-96">
+    <div className="w-96 md:w-full h-96">
       <ResponsiveBar
         data={data}
         keys={[
