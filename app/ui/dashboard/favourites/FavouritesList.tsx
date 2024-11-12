@@ -11,7 +11,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 
 export default function FavouritesList({ favourites }: any) {
-  if (!favourites) return <p className="text-2xl font-bold text-center mt-8">Search for an artist to add them to your favourites</p>;
+  if (!favourites.length) return <p className="text-2xl font-bold text-center mt-8">Search for an artist to add them to your favourites</p>;
   return (
     <section className="mt-10 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
       
