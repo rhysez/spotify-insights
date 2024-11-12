@@ -46,27 +46,6 @@ export async function getSpotifyToken() {
   }
 }
 
-export async function getCategories() {
-  noStore();
-  const token = await getSpotifyToken();
-  try {
-    const response = await fetch(
-      'https://api.spotify.com/v1/browse/categories',
-      {
-        method: 'GET',
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      },
-    );
-
-    const data = await response.json();
-    return data.categories.items;
-  } catch (error) {
-    console.error('Failed to fetch categories:', error);
-  }
-}
-
 export async function getFavourites(userId: string) {
   noStore();
   try {
@@ -80,7 +59,7 @@ export async function getFavourites(userId: string) {
   if (favourites.rowCount) {
     return favourites.rows;
   } else {
-    return false;
+    return [];
   }
   } catch(error) {
     console.log(error)

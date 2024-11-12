@@ -69,7 +69,7 @@ export default async function Page() {
 
   console.log(followersBarData)
 
-  if (!favourites) {
+  if (!favourites.length) {
     return (
       <main>
         <h1 className="text-center text-6xl font-bold bg-gradient-to-r from-spotify_white to-spotify_green bg-clip-text text-transparent">

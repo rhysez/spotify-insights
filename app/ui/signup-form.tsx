@@ -22,21 +22,31 @@ export default function SignupForm() {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isPending, setIsPending] = useState<boolean>(false);
 
   const validateForm = async () => {
     try {
+      setIsPending(true);
       const account = await createAccount(name, username, email, password);
       if (account) {
         push('/login');
+        setIsPending(false)
         toast({
           title: `Welcome aboard ${username}!`,
           description: "You may now log into your account",
         });
       }
     } catch(error) {
+      setIsPending(false);
       console.log(error)
     }
   };
+
+  if (isPending) {
+    return (
+        <ArrowPathIcon className="mx-auto mt-24 h-24 w-24 animate-spin rounded-full border-[1px] border-spotify_link_active bg-spotify_dark_gray p-2 text-center text-spotify_green" />
+    );
+  }
 
   return (
     <form action={validateForm} className="h-full space-y-3 px-2 pb-4 pt-8">
