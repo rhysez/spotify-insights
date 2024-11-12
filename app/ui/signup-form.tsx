@@ -25,17 +25,17 @@ export default function SignupForm() {
   const [isPending, setIsPending] = useState<boolean>(false);
 
   const validateForm = async () => {
+    setIsPending(true);
     try {
-      setIsPending(true);
       const account = await createAccount(name, username, email, password);
       if (account) {
         push('/login');
-        setIsPending(false)
         toast({
           title: `Welcome aboard ${username}!`,
           description: "You may now log into your account",
         });
       }
+      setIsPending(false)
     } catch(error) {
       setIsPending(false);
       console.log(error)
